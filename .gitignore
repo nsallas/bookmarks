@@ -4,3 +4,4 @@ backup
 *.bak
 .env
 .sass-cache
+.idea
