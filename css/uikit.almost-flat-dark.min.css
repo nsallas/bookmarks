@@ -1,6 +1,5 @@
-/*! UIkit 2.24.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 html {
-  	font: 400 14px/20px "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 400 14px/20px "Source Code Pro", sans-serif;
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
 	background: #5C6E74;
@@ -41,7 +40,7 @@ b, strong {
 
 :not(pre)>code, :not(pre)>kbd, :not(pre)>samp {
 	font-size: 12px;
-  	font-family: "Avenir Next", Consolas, monospace, serif;
+	font-family: "Source Code Pro", serif;
 	color: #d05;
 	white-space: nowrap;
 	padding: 0 4px;
@@ -118,7 +117,7 @@ address, blockquote, dl, fieldset, figure, ol, p, pre, ul {
 
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 15px 0;
-  	font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  	font-family: "Source Code Pro", sans-serif;
 	font-weight: 400;
 	color: #444;
 	text-transform: none
@@ -197,7 +196,7 @@ blockquote {
 pre {
 	padding: 10px;
 	background: #fafafa;
-	font: 12px/18px Consolas, monospace, serif;
+	font: 12px/18px "Source Code Pro", serif;
 	color: #444;
 	-moz-tab-size: 4;
 	tab-size: 4;
@@ -1660,7 +1659,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 	line-height: 40px;
 	color: #444;
 	font-size: 14px;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Source Code Pro", sans-serif;
 	font-weight: 400;
 	margin-top: -1px;
 	margin-left: -1px;
