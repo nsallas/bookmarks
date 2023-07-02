@@ -6865,7 +6865,7 @@ a.uk-thumbnail:focus, a.uk-thumbnail:hover {
     width: 600px;
     max-width: 100%;
     max-width: calc(100% - 20px);
-    background: #fff;
+    background: #FCF6E5;
     opacity: 0;
     -webkit-transform: translateY(-100px);
     transform: translateY(-100px);

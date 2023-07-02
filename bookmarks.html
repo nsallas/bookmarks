@@ -9,6 +9,9 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link id="theme" href="./css/uikit.almost-flat-light.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.22/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.22/js/uikit-icons.min.js"></script>
+
     <style>
             .theme-toggle-container {
                 text-align: right;
@@ -39,6 +42,83 @@
                     themeToggleButton.classList.add('fas', 'fa-moon');
                 }
             }
+
+            function addLink() {
+                var category = document.getElementById('category').value;
+                var url = document.getElementById('url').value;
+                var name = document.getElementById('name').value;
+                var title = name.replace(/\s+/g, '-').toLowerCase();
+
+                // Create a new link object
+                var link = {
+                    category: category,
+                    url: url,
+                    name: name,
+                    title: title
+                };
+
+                // Send a POST request to the server
+                fetch('/add-link', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(link)
+                }).then(function(response) {
+                    if (response.ok) {
+                        console.log('Link was added successfully');
+                    } else {
+                        console.error('Error: ' + response.statusText);
+                    }
+                });
+            }
+
+            function addCategory() {
+                var categoryName = prompt("Enter the new category name:");
+
+                // Create the new category elements
+                var categoryDiv = document.createElement('div');
+                categoryDiv.className = "uk-width-large-1-4 uk-width-medium-1-3 uk-width-small-1-2";
+
+                var panelDiv = document.createElement('div');
+                panelDiv.className = "uk-panel uk-panel-box";
+                panelDiv.style.minHeight = "200px";
+
+                var categoryTitle = document.createElement('h3');
+                categoryTitle.className = "uk-panel-title uk-text-bold category-title";
+                categoryTitle.textContent = categoryName;
+
+                var list = document.createElement('ul');
+                list.className = "uk-list uk-list-space uk-list-desc hpn-innerlist ui-sortable";
+
+                // Append the new elements to the document
+                panelDiv.appendChild(categoryTitle);
+                panelDiv.appendChild(list);
+                categoryDiv.appendChild(panelDiv);
+
+                var listLinks = document.getElementById('listLinks');
+                listLinks.appendChild(categoryDiv);
+
+                // Add the new category to the dropdown
+                var categoryDropdown = document.getElementById('category');
+                var option = document.createElement('option');
+                option.text = categoryName;
+                categoryDropdown.add(option);
+            }
+
+    </script>
+
+    <script>
+        window.onload = function() {
+            var categoryTitles = document.getElementsByClassName('category-title');
+            var categoryDropdown = document.getElementById('category');
+
+            for (var i = 0; i < categoryTitles.length; i++) {
+                var option = document.createElement('option');
+                option.text = categoryTitles[i].innerText;
+                categoryDropdown.add(option);
+            }
+        };
     </script>
 </head>
 <body>
@@ -49,54 +129,47 @@
                     <div class="hpn-space-small"></div>
                     <div class="uk-width-1-1 uk-margin-bottom uk-margin-top">
                         <div class="theme-toggle-container">
-                            <button id="theme-toggle-button" class="fas fa-moon theme-toggle-button" onclick=
-                            "toggleTheme()" aria-label="Toggle theme"></button>
+                            <button id="theme-toggle-button" class="fas fa-moon theme-toggle-button" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+<!--                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: #add-link-modal">Add Link</button>-->
                         </div>
                     </div>
                     <div class="uk-width-1-1">
-                        <div id="listLinks" class="uk-grid uk-grid-medium uk-grid-match uk-sortable ui-sortable"
-                        data-uk-grid-match="{target:'.uk-panel'}">
+                        <div id="listLinks" class="uk-grid uk-grid-medium uk-grid-match uk-sortable ui-sortable" data-uk-grid-match="{target:'.uk-panel'}">
                             <div class="uk-width-large-1-4 uk-width-medium-1-3 uk-width-small-1-2">
                                 <div class="uk-panel uk-panel-box" style="min-height: 200px;">
-                                    <h3 class="uk-panel-title uk-text-bold">Category</h3>
+                                    <h3 class="uk-panel-title uk-text-bold category-title">Category 1</h3>
                                     <ul class="uk-list uk-list-space uk-list-desc hpn-innerlist ui-sortable">
                                         <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 1</a>
+                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel="nofollow">Link 1</a>
                                         </li>
                                         <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 2</a>
+                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel="nofollow">Link 2</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="uk-width-large-1-4 uk-width-medium-1-3 uk-width-small-1-2">
                                 <div class="uk-panel uk-panel-box" style="min-height: 200px;">
-                                    <h3 class="uk-panel-title uk-text-bold">Category</h3>
+                                    <h3 class="uk-panel-title uk-text-bold category-title">Category 2</h3>
                                     <ul class="uk-list uk-list-space uk-list-desc hpn-innerlist ui-sortable">
                                         <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 1</a>
+                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel="nofollow">Link 1</a>
                                         </li>
                                         <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 2</a>
+                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel="nofollow">Link 2</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="uk-width-large-1-4 uk-width-medium-1-3 uk-width-small-1-2">
                                 <div class="uk-panel uk-panel-box" style="min-height: 200px;">
-                                    <h3 class="uk-panel-title uk-text-bold">Category</h3>
+                                    <h3 class="uk-panel-title uk-text-bold category-title">Category 3</h3>
                                     <ul class="uk-list uk-list-space uk-list-desc hpn-innerlist ui-sortable">
                                         <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 1</a>
+                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel="nofollow">Link 1</a>
                                         </li>
                                         <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 2</a>
+                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel="nofollow">Link 2</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -104,91 +177,13 @@
                             <div class="uk-width-1-1 uk-margin-bottom uk-margin-top"></div>
                             <div class="uk-width-large-1-4 uk-width-medium-1-3 uk-width-small-1-2">
                                 <div class="uk-panel uk-panel-box" style="min-height: 200px;">
-                                    <h3 class="uk-panel-title uk-text-bold">Category</h3>
+                                    <h3 class="uk-panel-title uk-text-bold category-title">Category 4</h3>
                                     <ul class="uk-list uk-list-space uk-list-desc hpn-innerlist ui-sortable">
                                         <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 1</a>
+                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel="nofollow">Link 1</a>
                                         </li>
                                         <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="uk-width-large-1-4 uk-width-medium-1-3 uk-width-small-1-2">
-                                <div class="uk-panel uk-panel-box" style="min-height: 200px;">
-                                    <h3 class="uk-panel-title uk-text-bold">Category</h3>
-                                    <ul class="uk-list uk-list-space uk-list-desc hpn-innerlist ui-sortable">
-                                        <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="uk-width-large-1-4 uk-width-medium-1-3 uk-width-small-1-2">
-                                <div class="uk-panel uk-panel-box" style="min-height: 200px;">
-                                    <h3 class="uk-panel-title uk-text-bold">Category</h3>
-                                    <ul class="uk-list uk-list-space uk-list-desc hpn-innerlist ui-sortable">
-                                        <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-1 uk-margin-bottom uk-margin-top"></div>
-                            <div class="uk-width-large-1-4 uk-width-medium-1-3 uk-width-small-1-2">
-                                <div class="uk-panel uk-panel-box" style="min-height: 200px;">
-                                    <h3 class="uk-panel-title uk-text-bold">Category</h3>
-                                    <ul class="uk-list uk-list-space uk-list-desc hpn-innerlist ui-sortable">
-                                        <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="uk-width-large-1-4 uk-width-medium-1-3 uk-width-small-1-2">
-                                <div class="uk-panel uk-panel-box" style="min-height: 200px;">
-                                    <h3 class="uk-panel-title uk-text-bold">Category</h3>
-                                    <ul class="uk-list uk-list-space uk-list-desc hpn-innerlist ui-sortable">
-                                        <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 2</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="uk-width-large-1-4 uk-width-medium-1-3 uk-width-small-1-2">
-                                <div class="uk-panel uk-panel-box" style="min-height: 200px;">
-                                    <h3 class="uk-panel-title uk-text-bold">Category</h3>
-                                    <ul class="uk-list uk-list-space uk-list-desc hpn-innerlist ui-sortable">
-                                        <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel=
-                                            "nofollow">Link 2</a>
+                                            <a href="https://www.somelink.com/" target="_blank" title="somelink" rel="nofollow">Link 2</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -199,5 +194,25 @@
             </div>
         </div>
     </main>
+
+<!--    Add Link Modal Window -->
+    <div id="add-link-modal" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body">
+            <h2 class="uk-panel-title uk-text-bold">Add Link</h2>
+            <form onsubmit="event.preventDefault(); addLink();">
+                <div class="uk-margin">
+                    <select id="category" class="uk-select uk-text-bold"></select>
+                </div>
+                <div class="uk-margin">
+                    <input id="url" class="uk-input" type="text" placeholder="Link URL">
+                </div>
+                <div class="uk-margin">
+                    <input id="name" class="uk-input" type="text" placeholder="Friendly Name">
+                </div>
+                <button class="uk-button uk-button-primary" type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -1,0 +1,24 @@
+{
+  "name": "bookmarks",
+  "version": "1.0.0",
+  "description": "A simple static bookmark home page file",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonysallas/bookmarks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antonysallas/bookmarks/issues"
+  },
+  "homepage": "https://github.com/antonysallas/bookmarks#readme",
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
+}
